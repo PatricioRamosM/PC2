@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Email.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PC2</a> &gt; <a href="index.source.html" class="el_package">com.mycompany.pc2</a> &gt; <span class="el_source">Email.java</span></div><h1>Email.java</h1><pre class="source lang-java linenums">package com.mycompany.pc2;
+
+<span class="fc" id="L3">public class Email {</span>
+
+    public boolean isValidEmail(String email) {
+
+<span class="fc bfc" id="L7" title="All 4 branches covered.">        if (email == null || email.trim().isEmpty()) {</span>
+<span class="fc" id="L8">            throw new IllegalArgumentException(&quot;El correo no puede ser nulo o vacío&quot;);</span>
+        }
+
+<span class="fc bfc" id="L11" title="All 4 branches covered.">        if (email.length() &lt; 6 || email.length() &gt; 254) {</span>
+<span class="fc" id="L12">            return false;</span>
+        }
+
+<span class="fc" id="L15">        int atIndex = email.indexOf('@');</span>
+<span class="pc bpc" id="L16" title="1 of 4 branches missed.">        if (atIndex == -1 || atIndex != email.lastIndexOf('@')) {</span>
+<span class="fc" id="L17">            return false;</span>
+        }
+
+<span class="fc" id="L20">        String local = email.substring(0, atIndex);</span>
+<span class="fc" id="L21">        String domain = email.substring(atIndex + 1);</span>
+
+<span class="pc bpc" id="L23" title="1 of 8 branches missed.">        if (local.isEmpty() || local.startsWith(&quot;.&quot;) || local.endsWith(&quot;.&quot;) || local.contains(&quot;..&quot;)) {</span>
+<span class="fc" id="L24">            return false;</span>
+        }
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (!local.matches(&quot;[A-Za-z0-9._-]+&quot;)) {</span>
+<span class="fc" id="L28">            return false;</span>
+        }
+
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (!domain.contains(&quot;.&quot;)) {</span>
+<span class="fc" id="L32">            return false;</span>
+        }
+
+<span class="fc" id="L35">        String[] domainParts = domain.split(&quot;\\.&quot;);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (domainParts.length &lt; 2) {</span>
+<span class="nc" id="L37">            return false;</span>
+        }
+
+<span class="fc" id="L40">        String nombreDominio = domainParts[0];</span>
+<span class="fc" id="L41">        String extension = domainParts[domainParts.length - 1];</span>
+
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (nombreDominio.length() &lt; 2) {</span>
+<span class="fc" id="L44">            return false;</span>
+        }
+
+<span class="fc" id="L47">        String[] validExtensions = {&quot;com&quot;, &quot;net&quot;, &quot;org&quot;, &quot;edu&quot;, &quot;gov&quot;, &quot;pe&quot;};</span>
+<span class="fc" id="L48">        boolean extensionValida = false;</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        for (String ext : validExtensions) {</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (extension.equalsIgnoreCase(ext)) {</span>
+<span class="fc" id="L52">                extensionValida = true;</span>
+<span class="fc" id="L53">                break;</span>
+            }
+        }
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (!extensionValida) {</span>
+<span class="fc" id="L58">            return false;</span>
+        }
+
+<span class="fc" id="L61">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
